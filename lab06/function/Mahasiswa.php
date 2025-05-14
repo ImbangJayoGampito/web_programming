@@ -1,10 +1,16 @@
 <?php
-include_once '../config/Config.php';
 include_once '../config/Database.php';
+include '../config/Config.php';
 include_once '../model/Mahasiswa.php';
-$database = new Database();
-$db = $database->getConnection();
-$mahasiswa = new Mahasiswa($db);
+
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+$mahasiswa = new Mahasiswa();
+
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];

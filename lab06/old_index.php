@@ -1,10 +1,11 @@
 <?php
 include './function/Alert.php';
+include_once './config/Database.php';
 include_once './model/Mahasiswa.php';
-
-$mahasiswa = new Mahasiswa();
-$result = $mahasiswa->get_all();
-
+$database = new Database();
+$db = $database->getConnection();
+$mahasiswa = new Mahasiswa($db);
+$result = $mahasiswa->read();
 ?>
 <!doctype html>
 <html lang="en">
@@ -13,7 +14,7 @@ $result = $mahasiswa->get_all();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OOP - CRUD</title>
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="crud/assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,24 +45,19 @@ $result = $mahasiswa->get_all();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $no = 1;
-                        if (!empty($result) && is_array($result)) { // Check if $result is not empty and is an array
-                            foreach ($result as $row) { ?>
-                                <tr>
-                                    <td><?= $no++ ?></td>
-                                    <td><?= htmlspecialchars($row->nim) ?></td>
-                                    <td><?= htmlspecialchars($row->nama) ?></td>
-                                    <td><?= htmlspecialchars($row->jurusan) ?></td>
-                                    <td>
-                                        <a class="btn btn-success btn-sm" href="edit.php?id=<?= htmlspecialchars($row->id) ?>">Edit</a>
-                                        <a class="btn btn-danger btn-sm" href="function/Mahasiswa.php?action=delete&&id=<?= htmlspecialchars($row->id) ?>" onclick="return confirm('Anda yakin ingin menghapus Data <?= htmlspecialchars($row->nama) ?>?');">Hapus</a>
-                                    </td>
-                                </tr>
-                            <?php }
-                        } else { ?>
+                        <?php $no = 1;
+                        foreach ($result as $row) { ?>
                             <tr>
-                                <td colspan="5" class="text-center">No data available</td>
+                                <td><?= $no++ ?></td>
+                                <td><?= $row['nim'] ?></td>
+                                <td><?= $row['nama'] ?></td>
+                                <td><?= $row['jurusan'] ?></td>
+                                <td>
+                                    <a class="btn btn-success btn-sm"
+                                        href="edit.php?id=<?= $row['id'] ?>">Edit</a>
+                                    <a class="btn btn-danger btn-sm"
+                                        href="crud/function/Mahasiswa.php?action=delete&&id=<?= $row['id'] ?>" onclick="return confirm('Anda yakin ingin menghapus Data <?php echo $row['nama']; ?>?');">Hapus</a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -69,7 +65,7 @@ $result = $mahasiswa->get_all();
             </div>
         </div>
     </div>
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="crud/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

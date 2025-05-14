@@ -1,9 +1,11 @@
 <?php
-include_once './model/Mahasiswa.php';
-
-$mahasiswa = new Mahasiswa();
+include_once 'crud/config/Database.php';
+include_once 'crud/model/Mahasiswa.php';
+$database = new Database();
+$db = $database->getConnection();
+$mahasiswa = new Mahasiswa($db);
 if (isset($_GET['id'])) {
-    $mahasiswa = Mahasiswa::find('id', $_GET['id']);
+    $result = $mahasiswa->read($_GET['id'])[0];
 }
 ?>
 <!doctype html>
@@ -27,19 +29,19 @@ SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
                 <div class="form-group">
                     <label for="nim">NIM</label>
                     <input type="hidden" class="form-control" name="id"
-                        value="<?= $mahasiswa->id; ?>" required>
+                        value="<?= $result['id']; ?>" required>
                     <input type="text" class="form-control" name="nim"
-                        value="<?= $mahasiswa->nim; ?>" required>
+                        value="<?= $result['nim']; ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama</label>
                     <input type="text" class="form-control" name="nama"
-                        value="<?= $mahasiswa->nama; ?>" required>
+                        value="<?= $result['nama']; ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="jurusan">Jurusan</label>
                     <input type="text" class="form-control" name="jurusan"
-                        value="<?= $mahasiswa->jurusan; ?>" required>
+                        value="<?= $result['jurusan']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-
 2">Update</button>

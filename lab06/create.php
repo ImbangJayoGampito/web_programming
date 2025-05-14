@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OOP - Create</title>
-    <link href="crud/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <h1>Create Mahasiswa</h1>
-            <form action="crud/function/Mahasiswa.php?action=create" method="post">
+            <form action="function/Mahasiswa.php?action=create" method="post">
                 <div class="form-group">
                     <label for="nim">NIM</label>
                     <input type="text" class="form-control" name="nim" required>
@@ -32,7 +32,7 @@
             </form>
         </div>
     </div>
-    <script src="crud/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
