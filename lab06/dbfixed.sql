@@ -1,0 +1,7 @@
+CREATE TABLE `mahasiswa` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `nim` VARCHAR(16) NOT NULL UNIQUE,
+    `nama` VARCHAR(128) NOT NULL,
+    `jurusan` VARCHAR(128) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
